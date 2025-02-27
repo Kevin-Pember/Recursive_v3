@@ -1,0 +1,43 @@
+@import '@fontsource/fira-mono';
+@import "tailwindcss";
+
+:root {
+	--secondaryLight: #535353;
+	--secondary: #3d3d3d;
+	--secondaryDark: #323232;
+	--accent: #15ad6e;
+	--primary: #1b1b1b;
+	--text: #48fea6;
+	--translucent: #00000033;
+	--semi-transparent: #000000c5;
+	--neutralColor: #80808080;
+  }
+:root {
+	--color-bg-0: #1b1b1b;
+	--color-bg-1: #1b1b1b;
+	--color-bg-2: #1b1b1b;
+	--color-theme-1: #ff3e00;
+	--color-theme-2: #4075a6;
+	--color-text: rgba(0, 0, 0, 0.7);
+	--column-width: 42rem;
+	--column-margin-top: 4rem;
+	color: var(--text);
+	background-color: #1b1b1b;
+}
+math-field {
+  --caret-color: var(--text);
+  --contains-highlight-background-color: var(--secondaryDark);
+  --selection-background-color: var(--secondaryDark);
+  --highlight-text: var(var(--secondaryLight));
+  --selection-color: var(--accent);
+  color: var(--text);
+  outline: none;
+}
+@media not (pointer: coarse) {
+	math-field::part(virtual-keyboard-toggle) {
+	  display: none;
+	}
+	math-field::part(menu-toggle){
+		display: none;
+	}
+  }
