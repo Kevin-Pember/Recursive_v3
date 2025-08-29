@@ -8,8 +8,10 @@
                              "inv . . . ."`
     //'"sin 1 2 3 +""cos 4 5 6 -""tan 7 8 9 ×""ln pow 0 sqrt ÷""inv"'
     let keyInput = (type:string,key:any) => {
-        if("insert"){
-            return  () => {target.executeCommand(["insert", key, {selectionMode: "after"}]); target.executeCommand(["moveToNextChar"])}
+        if(type == "insert"){
+            return  () => {
+                target.executeCommand(["insert", key, {selectionMode: "after"}]); 
+                target.executeCommand(["moveToNextChar"])}
         }else{
             return key
         }

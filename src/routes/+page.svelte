@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Keypad from "./components/Keypad.svelte"
+	import Keypad from "./components/keypad.svelte"
 	let target
 	let keypad: Keypad
 </script>
