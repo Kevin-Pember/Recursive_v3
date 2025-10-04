@@ -1,7 +1,17 @@
 @import '@fontsource/fira-mono';
 @import "tailwindcss";
 
+@theme {
+  --color-secondary: #3d3d3d;
+  --color-accent: #15ad6e;
+  --color-primary: #1b1b1b;
+  --color-text: #48fea6;
+  --color-translucent: #00000033;
+  --color-semi-transparent: #000000c5;
+  --color-neutralColor: #80808080;
+}
 :root {
+	
 	--secondaryLight: #535353;
 	--secondary: #3d3d3d;
 	--secondaryDark: #323232;

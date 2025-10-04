@@ -6,55 +6,15 @@
                              "ln pow zero sqrt divide"
                              "inv . . . ."`;
   //'"sin 1 2 3 +""cos 4 5 6 -""tan 7 8 9 ×""ln pow 0 sqrt ÷""inv"'
-  let keyInput = (type: string, key: any) => {
-    if (type == "insert") {
-      return () => {
-        target.executeCommand(["insert", key, { selectionMode: "after" }]);
-        target.executeCommand(["moveToNextChar"]);
-      };
-    } else {
-      return key;
-    }
-  };
-  const keyTemplates = {
-    sin: {
-      c: keyInput("insert", "sin("),
-      content: "sin",
-      generic: "sin",
-    },
-    "1": {
-      c: keyInput("insert", "1"),
-      content: "1",
-      generic: "one",
-    },
-    "2": {
-      c: keyInput("insert", "2"),
-      content: "2",
-      generic: "two",
-    },
-    "3": {
-      c: keyInput("insert", "3"),
-      content: "3",
-      generic: "three",
-    },
-    "+": {
-      c: keyInput("insert", "+"),
-      content: "+",
-      generic: "plus",
-    },
-    cos: {
-      c: keyInput("insert", "cos("),
-      content: "cos",
-      generic: "cos",
-    },
-  };
+  
 </script>
 
-<div id="keypad" style="visibility: inherit;">
-  <arrow-icon id="arrowIcon" class="arrows imgDivClass iconType" direction="up"
+<div class=" overflow-hidden absolute bg-primary w-2/3 h-full rounded-3xl">
+  <!-- TODO: Implement Arrow Icon component-->
+  <arrow-icon class="arrow-icon arrows imgDivClass iconType visibility-inherit top-2 right-2 z-2 bg-accent absolute h-9 rounded-full" direction="up"
   ></arrow-icon>
-  <div id="mainCacGrid">
-    <div id="gridBackDrop" class="paneType"></div>
+  <div class="primary-grid absolute w-full h-full grid m-0 bg-primary">
+    <div class="paneType absolute w-3/4 h-2/3 top-0 left-0 z-0 bg-accent rounded-2xl"></div>
     <button
       class="gridButton keypadButton"
       id="num1"
@@ -74,10 +34,9 @@
       style="grid-area: num3;">3</button
     >
     <button
-      id="moreFunctionsButton"
-      class="keypadButton gridButton fI"
+      class="keypadButton gridButton fI h-full w-full text-xl text-text text-center border-none relative"
       style="grid-area: moreFuncBut;"
-      tabindex="-1">𝑓</button
+      tabindex="-1">𝑓(x)</button
     >
     <button class="gridButton keypadButton" id="num4" style="grid-area: num4;"
       >4</button
@@ -89,19 +48,20 @@
       >6</button
     >
     <button
-      class="gridButton keypadButton fI"
+      class="gridButton keypadButton fI place-content-center grid"
       id="backspace"
-      style="grid-area: backspace;display: grid;justify-content: center;align-content: center;"
+      style="grid-area: backspace;"
+      name="backspace"
+      aria-label="backspace"
     >
+      <!-- TODO: Chase down the bug that turns fill-text black and not the accent color-->
       <svg
-        id="backspcaeIcon"
-        style="height: 20px; width: 40px;isolation:isolate"
+        class="isolate w-10 h-5 fill-accent"
         viewBox="0 0 1080 540"
         xmlns="http://www.w3.org/2000/svg"
       >
         <rect width="1080" height="540" fill-opacity="0" />
         <path
-          class="text"
           d="m657.21 270-147.56 147.13 37.394 37.284 147.56-147.13 147.56 147.13 37.395-37.284-147.56-147.13 147.56-147.13-37.395-37.284-147.56 147.13-147.56-147.13-37.394 37.284 147.56 147.13zm-231.69-247.29v-1.106l-403.92 248.4 403.92 248.4v-1.106c14.803 14.068 34.815 22.706 56.829 22.706h515.12c45.548 0 82.527-36.979 82.527-82.527v-374.95c0-45.548-36.979-82.527-82.527-82.527h-515.12c-22.014 0-42.026 8.638-56.829 22.706z"
           fill-rule="evenodd"
         />
@@ -176,8 +136,8 @@
       style="grid-area: division;">÷</button
     >
   </div>
-  <div id="extraFuncPopUp">
-    <div id="customFuncDisplayPopup" class="paneType" data-element="popup">
+  <div id="extraFuncPopUp" class=" w-full h-full top-full block absolute z-1 visibility-inherit">
+    <div id="customFuncDisplay" class="paneType h-1/3 w-full top-0 bg-accent absolute z-1 overflow-x-auto" data-element="popup">
       <plus-icon id="addIconPopup" class="standaloneButtons iconType" test="sd"
       ></plus-icon>
       <minus-icon
@@ -194,6 +154,7 @@
         class="gridButton keypadButton fI"
         id="helpPopup"
         style="grid-area: help;display: grid;justify-content: center;align-content: center;"
+        aria-label="help"
       >
         <svg
           class="helpIcon imgDivClass"
@@ -286,31 +247,14 @@
 </div>
 
 <style>
-  #extraFuncPopUp {
-    height: 100%;
-    width: 100%;
-    top: 100%;
-    display: block;
-    position: absolute;
-    z-index: 1;
+
+  .visibility-inherit{
     visibility: inherit;
   }
-  #keypad {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    background-color: var(--primary);
-  }
-  #mainCacGrid {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: grid;
+  .primary-grid {
     grid-gap: 0px 0px;
-    margin: 0px;
     grid-template-columns: 25% 25% 25% 25%;
     grid-template-rows: 16.6666% 16.6666% 16.6666% 16.6666% 16.6666% 16.6666%;
-    background-color: #00000000;
     grid-template-areas:
       "num1 num2 num3 moreFuncBut"
       "num4 num5 num6 backspace"
@@ -319,61 +263,11 @@
       "percent pars pow multiplication"
       "enter pow2 sqrt division";
   }
-  #gridBackDrop {
-    position: absolute;
-    width: 75%;
-    height: 66.6666%;
-    top: 0px;
-    left: 0px;
-    z-index: 0;
-    background-color: var(--accent);
-  }
 
-  #moreFunctionsButton {
-    height: 100%;
-    width: 100%;
-    font-size: 15px;
-    color: var(--text);
-    text-align: center;
-    border-style: none;
-    position: relative;
-    grid-area: moreFuncBut;
-  }
-
-  #arrowIcon {
-    visibility: inherit;
-    top: 10px;
+  .arrow-icon {
     transition: transform 0.125s;
-    right: 10px;
-    font-size: 15px;
-    text-align: center;
-    stroke: transparent;
-    stroke-width: 0px;
-    background-color: #00000000;
-    position: absolute;
-    z-index: 2;
-    height: 35px;
-    pointer-events: all;
-    background-color: var(--secondary);
   }
-
-  #backspace {
-    flex-shrink: 0;
-    grid-area: backspace;
-  }
-
-  #backspaceDiv {
-    display: flex;
-  }
-  #customFuncDisplayPopup {
-    height: 33.3333%;
-    width: 100%;
-    top: 0;
-    background-color: var(--accent);
-    position: absolute;
-    z-index: 1;
-    overflow-x: auto;
-  }
+  /* TODO: Continue from here after fully reading https://google.github.io/styleguide/htmlcssguide.html*/
   #custFuncGridPopup {
     position: absolute;
     left: 0;
